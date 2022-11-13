@@ -76,6 +76,36 @@ html {
                 margin-bottom: 150px;
             }
         }
+        .spinner-box {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            @include display001;
+            background: #fff;
+            z-index: 999;
+            .three-quarter-spinner {
+                $spin-animation: spin 1s linear infinite; 
+                width: 20px;
+                height: 20px;
+                border: 2px solid $color001;
+                border-top: 2px solid transparent;
+                border-radius: 50%;
+                -webkit-animation: $spin-animation;
+                -moz-animation: $spin-animation;
+                -ms-animation: $spin-animation;
+                animation: $spin-animation;
+            }
+            @keyframes spin {
+                from {
+                  transform: rotate(0);
+                }
+                to{
+                  transform: rotate(359deg);
+                }
+              }
+        }
         .header {
             position: relative;
             margin: 20px auto 50px;
@@ -161,7 +191,7 @@ html {
                                            .down-menu-inner {
                                             padding-top: 30px;
                                             opacity: 1;
-                                            z-index: 50;
+                                            z-index: 150;
                                            }
                                         }
                                     }
@@ -279,7 +309,7 @@ html {
                 @include  menu-open-transition-item;
                 &.open {
                     opacity: 1;
-                    z-index: 60;
+                    z-index: 50;
                     @include  menu-open-transition-item;
     
                     @include m.mq(pc02) {
@@ -375,7 +405,7 @@ html {
                 width: 25px;
                 height: 15px;
                 @include nav-btn-transition-item;
-                z-index: 60;
+                z-index: 100;
     
                 @include m.mq(pc02) {
                     display: none;
@@ -417,29 +447,33 @@ html {
         .main {
             margin-bottom: 100px;
             .mv {
-                position: relative;
-    
+                position: relative; 
+                $slide-left-translateX100:  translateX(0%);
+                $slide-left-translateX0:  translateX(-100%);
+                @mixin slide-left-translateX0-item {
+                    -webkit-transform:  $slide-left-translateX0;
+                    -moz-transform:  $slide-left-translateX0;
+                    -ms-transform:  $slide-left-translateX0;
+                    transform:  $slide-left-translateX0;
+                }
                 &-images {
-                    $slide-left-animation: slide-left 1s ease-in-out;
+                    $slide-left-animation: slide-left .6s ease-in-out  2s both;
                     margin-bottom: 100px;
                     width: 95vw;
                     height: calc((90vw - 35px)*0.798);
                     border-radius: 0 40px 0 0;
                     z-index: 50;
                     object-fit: cover;
+                   @include  slide-left-translateX0-item;
                     -webkit-animation:$slide-left-animation;
                     -moz-animation:$slide-left-animation;
                     -ms-animation:$slide-left-animation;
                     animation: $slide-left-animation;
-        
-                    $slide-left-translateX0:  translateX(-100%);
+
                     $slide-left-translateX100:  translateX(0%);
                     @keyframes slide-left {
                         0% {
-                            -webkit-transform:  $slide-left-translateX0;
-                            -moz-transform:  $slide-left-translateX0;
-                            -ms-transform:  $slide-left-translateX0;
-                            transform:  $slide-left-translateX0;
+                            @include  slide-left-translateX0-item;
                         }
                         100% {
                             -webkit-transform:  $slide-left-translateX100;
@@ -466,9 +500,9 @@ html {
     
     
                     @include m.mq(pc02) {
-                        $title_slider-animation: title_slider .8s 1.2s ease-in-out both;
+                        $title_slider-animation: title_slider .8s ease-in-out 2.5s both;
                         top: 8%;
-                        right: 10%;
+                        right: 13%;
                         line-height: 60px;
                         opacity: 0;
                         -webkit-animation: $title_slider-animation;
@@ -499,7 +533,7 @@ html {
                     z-index: 10;
     
                     @include m.mq(pc02) {
-                        $slider-animation: slider .8s 2s linear both;
+                        $slider-animation: slider .8s linear 3.5s  both;
                         top: auto;
                         left: auto;
                         right: 0%;
@@ -554,7 +588,7 @@ html {
                     }
                 }
                 .slide_in {
-                    $slide_in-animation: slide_in .8s 1.2s ease-in-out both;
+                    $slide_in-animation: slide_in 1.2s ease-in-out 2.5s both;
                     position: absolute;
                     display: none;
                     font-size: 15px;
